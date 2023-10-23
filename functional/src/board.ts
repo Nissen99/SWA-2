@@ -179,7 +179,7 @@ function swapTiles<T>(board: Board<T>, first: Position, second: Position): Tile<
         }
     })
 }
-function getHorisontalMatches<T>(board: Board<T>): Match<T>[] {
+function getHorisontalMatches2<T>(board: Board<T>): Match<T>[] {
     const matches = Array(board.height).fill(Array(board.width).fill((f) => {
         return f
     })).flat()
@@ -188,7 +188,7 @@ function getHorisontalMatches<T>(board: Board<T>): Match<T>[] {
     return
 }
 
-function getHorisontalMatches2<T>(board: Board<T>): Match<T> []{
+function getHorisontalMatches<T>(board: Board<T>): Match<T> []{
     let matches = []
     let matchCount = 1
     let matchOnValue
