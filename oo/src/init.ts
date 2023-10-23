@@ -50,21 +50,6 @@ class RandGenerator implements Generator<String>{
         return this.characters[randomIndex]
     }
 }
-// async function init() {
-//     const generator = new GeneratorFake<String>(
-//         'D', 'B', 'A',
-//         'D', 'B', 'C',
-//         'B', 'A', 'B',
-//         'C', 'B', 'D',
-//     )
-//     generator.prepare('D', 'C', 'B', 'B', 'A')
-//     const board = new Board<String>(generator, 3, 4)
-//     const model = new Model<String>(board)
-//     const controller = new Controller<String>(model)
-//     const view = new View(window, controller)
-//     model.addObserver(m => view.view(m))
-//     view.view(model)
-// }
 
 async function init() {
     const generator = new SequenceGenerator("ABC")

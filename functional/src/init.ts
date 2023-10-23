@@ -56,30 +56,14 @@ class CyclicGenerator implements Generator<string> {
 }
 
 async function init() {
-    const generator = new GeneratorFake<String>(
-        'C', 'B', 'A',
-        'D', 'B', 'C',
-        'B', 'A', 'B',
-        'C', 'B', 'D',
-    )
-    generator.prepare('D', 'C', 'B', 'B', 'A')
-    const board = create(generator, 3, 4)
+    const generator = new SequenceGenerator("ABA")
+    
+    const board = create(generator, 4, 4)
     const model = new Model<String>(board, generator)
     const controller = new Controller<String>(model)
     const view = new View(window, controller)
     model.addObserver(m => view.view(m))
     view.view(model)
 }
-
-// async function init() {
-//     const generator = new SequenceGenerator("ABA")
-    
-//     const board = create(generator, 4, 4)
-//     const model = new Model<String>(board, generator)
-//     const controller = new Controller<String>(model)
-//     const view = new View(window, controller)
-//     model.addObserver(m => view.view(m))
-//     view.view(model)
-// }
 
 init()
