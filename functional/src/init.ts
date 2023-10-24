@@ -55,10 +55,21 @@ class CyclicGenerator implements Generator<string> {
     }
 }
 
+class RandGenerator implements Generator<String>{
+    private characters: string
+    constructor(characters){
+        this.characters = characters
+    }
+    next(): string {
+        const randomIndex = Math.floor(Math.random() * this.characters.length)
+        return this.characters[randomIndex]
+    }
+}
+
 async function init() {
-    const generator = new SequenceGenerator("ABA")
+    const generator = new RandGenerator("ABC")
     
-    const board = create(generator, 4, 4)
+    const board = create(generator, 4, 5)
     const model = new Model<String>(board, generator)
     const controller = new Controller<String>(model)
     const view = new View(window, controller)

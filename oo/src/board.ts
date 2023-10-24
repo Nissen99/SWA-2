@@ -45,6 +45,8 @@ export class Board<T> {
         this.listeners = []
 
         this.generateBoard()
+        this.updateMatches()
+        this.proccessMatch()
     }
 
     generateBoard(){
@@ -56,6 +58,7 @@ export class Board<T> {
                 this.tiles.push(tile)
             }
         }
+
     }
 
     getTileByPosition(p: Position): Tile<T> {
@@ -221,12 +224,7 @@ export class Board<T> {
 
         this.swapTiles(first, second)
 
-        do {
-            this.handleMatches()
-            this.shiftDownTiles()
-            this.replaceTiles()
-            this.updateMatches()
-        } while (this.matches.length > 0)
+        this.proccessMatch()
     }
     updateMatches(){
         let hMatches = this.getHorisontalMatches()
@@ -234,7 +232,15 @@ export class Board<T> {
 
         this.matches = [...hMatches, ...vMatches]
     }
-    handleMatches(){
+    proccessMatch(){
+        do {
+            this.handleMatch()
+            this.shiftDownTiles()
+            this.replaceTiles()
+            this.updateMatches()
+        } while (this.matches.length > 0)
+    }
+    handleMatch(){
         for (let match of this.matches){
             let event: MatchEvent<T> = {
                 kind: "Match",

@@ -28,11 +28,14 @@ export type MoveResult<T> = {
 }    
 
 export function create<T>(generator: Generator<T>, width: number, height: number): Board<T> {
-    return {
+
+    const tempBoard = {
         width: width,
         height: height,
         tiles: generateTiles<T>(generator, width, height)
     }
+    const {board}= processMove(generator, tempBoard, findMatches(tempBoard))
+    return board
 }    
 
 export function piece<T>(board: Board<T>, p: Position): T | undefined {
@@ -136,6 +139,7 @@ const generateTiles = <T>(generator: Generator<T>, width: number, height: number
     Array.from({length: height}, (_, row) => 
         Array.from({length: width}, (_, col) => generateTile(generator, row, col))
     ).flat()
+
 
 const getTileByPosition = <T>(board: Board<T>, p: Position): Tile<T> => 
     board.tiles.find(t => t.position.col === p.col && t.position.row === p.row)

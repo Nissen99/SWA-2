@@ -52,13 +52,28 @@ class RandGenerator implements Generator<String>{
 }
 
 async function init() {
-    const generator = new SequenceGenerator("ABC")
-    const board = new Board<String>(generator, 9, 9)
+    const generator = new GeneratorFake<String>(
+        'D', 'B', 'A',
+        'D', 'B', 'C',
+        'B', 'A', 'B',
+        'C', 'B', 'D',
+    )
+    const board = new Board<String>(generator, 3, 4)
     const model = new Model<String>(board)
     const controller = new Controller<String>(model)
     const view = new View(window, controller)
     model.addObserver(m => view.view(m))
     view.view(model)
 }
+
+// async function init() {
+//     const generator = new RandGenerator("AB")
+//     const board = new Board<String>(generator, 9, 9)
+//     const model = new Model<String>(board)
+//     const controller = new Controller<String>(model)
+//     const view = new View(window, controller)
+//     model.addObserver(m => view.view(m))
+//     view.view(model)
+// }
 
 init()
